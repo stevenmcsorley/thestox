@@ -131,7 +131,7 @@ export default class HelloWorld extends Vue {
   }
 
   setupStream () {
-    this.eventSource = new EventSource('http://localhost:7001/events?sym=symbol/AMC.json/?access_token/=eade5d2e846b2932ee84720e2e19c648e840e09f')
+    this.eventSource = new EventSource('url')
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.eventSource.onmessage = (e: any) => this.updateProdutList(JSON.parse(e.data))
   }
