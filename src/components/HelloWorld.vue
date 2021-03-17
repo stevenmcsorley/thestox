@@ -1,16 +1,63 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 <template>
   <div class="hello">
     <h1 class="text-green">THE STOX</h1>
+  <div class="small">
+    <line-chart :chart-data="datacollection" id="mychart"></line-chart>
+  </div>
 
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import LineChart from './LineChart.js'
+import io from 'socket.io-client'
+const socket = io.io('http://localhost:4000')
 
-@Component
+@Component({
+  components: {
+    LineChart
+  }
+})
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  datacollection: any = null
+
+  created (): void {
+    this.getRealtimeData()
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fillData (fetchedData: any): void {
+    this.datacollection = {
+      labels: [this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData)],
+      datasets: [
+        {
+          label: 'Google Stock',
+          backgroundColor: '#1A73E8',
+          data: [this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData)]
+        },
+        {
+          label: 'Microsoft Stock',
+          backgroundColor: '#2b7518',
+          data: [this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData)]
+        }
+      ]
+    }
+  }
+
+  getRealtimeData () {
+    socket.on('newdata', fetchedData => {
+      this.fillData(fetchedData)
+    })
+  }
+
+  getRandomChartValues (number: number) {
+    return Math.floor(Math.random() * number)
+  }
 }
 </script>
 
