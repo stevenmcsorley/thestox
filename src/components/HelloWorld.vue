@@ -3,7 +3,10 @@
   <div class="hello">
     <h1 class="text-green">THE STOX</h1>
   <div class="small">
-    <line-chart :chart-data="datacollection" id="mychart"></line-chart>
+    <!-- <line-chart :chart-data="datacollection" id="mychart"></line-chart> -->
+    {{datacollection['datasets'][0].data[0]}}
+    {{datacollection['datasets'][0].data[1]}}
+    {{datacollection['datasets'][0].data[2]}}
   </div>
 
   </div>
@@ -11,13 +14,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import LineChart from './LineChart.js'
 import io from 'socket.io-client'
 const socket = io.io('http://localhost:4000')
 
 @Component({
   components: {
-    LineChart
   }
 })
 export default class HelloWorld extends Vue {

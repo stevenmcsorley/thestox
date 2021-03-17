@@ -3,3 +3,4 @@ declare module '*.vue' {
   export default Vue
 }
 declare module '@chakra-ui/vue';
+declare module './LineChart.js';
