@@ -4,9 +4,23 @@
     <h1 class="text-green">THE STOX</h1>
   <div class="small">
     <!-- <line-chart :chart-data="datacollection" id="mychart"></line-chart> -->
-    {{datacollection['datasets'][0].data[0]}}
-    {{datacollection['datasets'][0].data[1]}}
-    {{datacollection['datasets'][0].data[2]}}
+    <p >
+      <span
+      :class="{'green': parseInt(datacollection.datasets[0].data[0]) > 10, 'red': parseInt(datacollection.datasets[0].data[0]) < 10}"
+      >
+      {{datacollection.datasets[0].data[0]}}
+      </span>
+            <span
+      :class="{'green': parseInt(datacollection.datasets[0].data[1]) > 10, 'red': parseInt(datacollection.datasets[0].data[1]) < 10}"
+      >
+      {{datacollection.datasets[0].data[1]}}
+      </span>
+            <span
+      :class="{'green': parseInt(datacollection.datasets[0].data[2]) > 10, 'red': parseInt(datacollection.datasets[0].data[2]) < 10}"
+      >
+      {{datacollection.datasets[0].data[2]}}
+      </span>
+    </p>
   </div>
 
   </div>
@@ -81,5 +95,11 @@ a {
 
 .text-green{
   color: #42b983;
+}
+.red{
+  color:red;
+}
+.green{
+  color:rgb(16, 255, 16);
 }
 </style>
