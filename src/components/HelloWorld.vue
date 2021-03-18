@@ -2,44 +2,51 @@
 <template>
   <div class="hello">
     <h1 class="text-green">THE STOX</h1>
-  <div class="small">
-    <!-- <line-chart :chart-data="datacollection" id="mychart"></line-chart> -->
-    <p >
-      <span
-      :class="{'green': parseInt(datacollection.datasets[0].data[0]) > 10, 'red': parseInt(datacollection.datasets[0].data[0]) < 10}"
-      >
-      {{datacollection.datasets[0].data[0]}}
-      </span>
-            <span
-      :class="{'green': parseInt(datacollection.datasets[0].data[1]) > 10, 'red': parseInt(datacollection.datasets[0].data[1]) < 10}"
-      >
-      {{datacollection.datasets[0].data[1]}}
-      </span>
-            <span
-      :class="{'green': parseInt(datacollection.datasets[0].data[2]) > 10, 'red': parseInt(datacollection.datasets[0].data[2]) < 10}"
-      >
-      {{datacollection.datasets[0].data[2]}}
-      </span>
-    </p>
-  </div>
-
+    <div class="small">
+      <!-- <line-chart :chart-data="datacollection" id="mychart"></line-chart> -->
+      <p>
+        <span
+          :class="{
+            green: parseInt(datacollection.datasets[0].data[0]) > 10,
+            red: parseInt(datacollection.datasets[0].data[0]) < 10
+          }"
+        >
+          {{ datacollection.datasets[0].data[0] }}
+        </span>
+        <span
+          :class="{
+            green: parseInt(datacollection.datasets[0].data[1]) > 10,
+            red: parseInt(datacollection.datasets[0].data[1]) < 10
+          }"
+        >
+          {{ datacollection.datasets[0].data[1] }}
+        </span>
+        <span
+          :class="{
+            green: parseInt(datacollection.datasets[0].data[2]) > 10,
+            red: parseInt(datacollection.datasets[0].data[2]) < 10
+          }"
+        >
+          {{ datacollection.datasets[0].data[2] }}
+        </span>
+      </p>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import io from 'socket.io-client'
-const socket = io.io('https://thestox.co.uk:3000', { secure: true })
+import { io } from 'socket.io-client'
+const socket = io('https://thestox.co.uk:3000', { secure: true })
 
 @Component({
-  components: {
-  }
+  components: {}
 })
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  datacollection: any = null
+  datacollection: any = null;
 
   created (): void {
     this.getRealtimeData()
@@ -48,29 +55,42 @@ export default class HelloWorld extends Vue {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fillData (fetchedData: any): void {
     this.datacollection = {
-      labels: [this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData)],
+      labels: [
+        this.getRandomChartValues(fetchedData),
+        this.getRandomChartValues(fetchedData),
+        this.getRandomChartValues(fetchedData)
+      ],
       datasets: [
         {
           label: 'Google Stock',
           backgroundColor: '#1A73E8',
-          data: [this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData)]
+          data: [
+            this.getRandomChartValues(fetchedData),
+            this.getRandomChartValues(fetchedData),
+            this.getRandomChartValues(fetchedData)
+          ]
         },
         {
           label: 'Microsoft Stock',
           backgroundColor: '#2b7518',
-          data: [this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData), this.getRandomChartValues(fetchedData)]
+          data: [
+            this.getRandomChartValues(fetchedData),
+            this.getRandomChartValues(fetchedData),
+            this.getRandomChartValues(fetchedData)
+          ]
         }
       ]
     }
   }
 
   getRealtimeData () {
-    socket.on('newdata', fetchedData => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    socket.on('newdata', (fetchedData: any) => {
       this.fillData(fetchedData)
     })
   }
 
-  getRandomChartValues (number: number) {
+  getRandomChartValues (number: number): number {
     return Math.floor(Math.random() * number)
   }
 }
@@ -93,13 +113,13 @@ a {
   color: #42b983;
 }
 
-.text-green{
+.text-green {
   color: #42b983;
 }
-.red{
-  color:red;
+.red {
+  color: red;
 }
-.green{
-  color:rgb(16, 255, 16);
+.green {
+  color: rgb(16, 255, 16);
 }
 </style>
