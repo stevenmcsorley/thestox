@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express')
 const app = express()
-const port = 4000
+const port = 3000
 
 const server = app.listen(`${port}`, function () {
   console.log(`Server started on port ${port}`)
