@@ -29,7 +29,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import io from 'socket.io-client'
-const socket = io.io('https://thestox.co.uk:4000')
+const socket = io.io()
 
 @Component({
   components: {
