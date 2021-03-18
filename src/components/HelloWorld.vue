@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 <template>
-  <div class="hello">
+  <div class="hello xx">
     <h1 class="text-green">THE STOX</h1>
   <div class="small">
     <!-- <line-chart :chart-data="datacollection" id="mychart"></line-chart> -->
