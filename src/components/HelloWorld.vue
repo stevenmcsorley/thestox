@@ -7,27 +7,27 @@
       <p>
         <span
           :class="{
-            green: parseInt(datacollection.datasets[0].data[0]) > 10,
-            red: parseInt(datacollection.datasets[0].data[0]) < 10
+            green: parseInt(datacollection.datasets[0].data[0].c) > 10,
+            red: parseInt(datacollection.datasets[0].data[0].c) < 10
           }"
         >
-          {{ datacollection.datasets[0].data[0] }}
+          {{ datacollection.datasets[0].data[0].c}}
         </span>
         <span
           :class="{
-            green: parseInt(datacollection.datasets[0].data[1]) > 10,
-            red: parseInt(datacollection.datasets[0].data[1]) < 10
+            green: parseInt(datacollection.datasets[0].data[0].h) > 10,
+            red: parseInt(datacollection.datasets[0].data[0].h) < 10
           }"
         >
-          {{ datacollection.datasets[0].data[1] }}
+          {{ datacollection.datasets[0].data[0].h}}
         </span>
         <span
           :class="{
-            green: parseInt(datacollection.datasets[0].data[2]) > 10,
-            red: parseInt(datacollection.datasets[0].data[2]) < 10
+            green: parseInt(datacollection.datasets[0].data[0].l) > 10,
+            red: parseInt(datacollection.datasets[0].data[0].l) < 10
           }"
         >
-          {{ datacollection.datasets[0].data[2] }}
+          {{ datacollection.datasets[0].data[0].l}}
         </span>
       </p>
     </div>
@@ -37,7 +37,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { io } from 'socket.io-client'
-const socket = io('https://thestox.co.uk:3000')
+const socket = io('wss://thestox.co.uk')
 
 @Component({
   components: {}
@@ -56,27 +56,23 @@ export default class HelloWorld extends Vue {
   fillData (fetchedData: any): void {
     this.datacollection = {
       labels: [
-        this.getRandomChartValues(fetchedData),
-        this.getRandomChartValues(fetchedData),
-        this.getRandomChartValues(fetchedData)
+        '1',
+        '2',
+        '3'
       ],
       datasets: [
         {
           label: 'Google Stock',
           backgroundColor: '#1A73E8',
           data: [
-            this.getRandomChartValues(fetchedData),
-            this.getRandomChartValues(fetchedData),
-            this.getRandomChartValues(fetchedData)
+            fetchedData
           ]
         },
         {
           label: 'Microsoft Stock',
           backgroundColor: '#2b7518',
           data: [
-            this.getRandomChartValues(fetchedData),
-            this.getRandomChartValues(fetchedData),
-            this.getRandomChartValues(fetchedData)
+            fetchedData
           ]
         }
       ]
@@ -87,6 +83,7 @@ export default class HelloWorld extends Vue {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     socket.on('newdata', (fetchedData: any) => {
       this.fillData(fetchedData)
+      console.log('fetchedData', fetchedData)
     })
   }
 
