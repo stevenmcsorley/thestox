@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 <template>
-  <div class="hello xx">
+  <div class="hello">
     <h1 class="text-green">THE STOX</h1>
   <div class="small">
     <!-- <line-chart :chart-data="datacollection" id="mychart"></line-chart> -->
@@ -29,7 +29,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import io from 'socket.io-client'
-const socket = io.io('https://thestox.co.uk:4000')
+const socket = io.io('https://localhost:4000')
 
 @Component({
   components: {
